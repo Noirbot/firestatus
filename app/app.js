@@ -1,8 +1,5 @@
 /*
- * Baseline Node service
- *
- * Fork this when creating new Curations microservices in Node.js
- *
+ * Firestatus Server base.
  */
 
 var restify = require('restify');

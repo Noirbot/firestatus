@@ -2,7 +2,7 @@
   "name": "firestatus",
   "version": "0.1.0",
   "description": "A status monitor for Firebuild builds.",
-  "main": "app.js",
+  "main": "app/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
