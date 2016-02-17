@@ -5,7 +5,6 @@
   "ecmaFeatures": {
     "modules": true
   },
-  "plugins": ["react"],
   "rules": {
     "brace-style": [2, "stroustrup", { "allowSingleLine": true }],
     "consistent-return": 0,
