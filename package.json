@@ -9,6 +9,7 @@
   "author": "Perry Shuman",
   "dependencies": {
     "async": "^0.9.0",
+    "aws-sns-q": "0.0.4",
     "lodash": "^3.2.0",
     "restify": "^2.8.4",
     "winston": "^0.8.3",

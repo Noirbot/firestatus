@@ -17,6 +17,12 @@ server.use(restify.throttle({
   burst: 15,
   ip: true
 }));
+server.use(restify.CORS({
+  // Defaults to ['*'].
+  origins: ['*.portal.bazaarvoice.com'],
+  // Defaults to false.
+  credentials: true
+}));
 
 // log all incoming requests with response code
 server.on('after', function(req, res, route, err) {
