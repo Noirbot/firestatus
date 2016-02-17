@@ -32,7 +32,7 @@ server.on('after', function(req, res, route, err) {
 });
 
 // Register all API modules
-require('./apiRoot')(server);
+require('./apiBuilds')(server);
 
 server.listen(8080, function() {
   logger.info('%s listening at %s', server.name, server.url);
