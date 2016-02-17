@@ -1,3 +1,5 @@
+var restify = require('restify');
+
 /**
  * GET /builds/
  *
@@ -16,29 +18,49 @@
  *   500 Internal server error
  */
 var get = function (req, res, next) {
-  var responsePayload = {
-    client: 'walmart-ca',
-    builds: {
-      stg: {
-        'Main Site': {
-          12: {
-            en_US: 'started',
-            de_DE: 'done',
-            ja_JP: 'failed'
-          }
-        }
-      },
-      prod: {
-        'Main Site': {
-          12: {
-            en_US: 'started',
-            de_DE: 'done',
-            ja_JP: 'done'
-          }
-        }
+  var baseData = {
+    stg: {
+      'Main Site': {
+        en_US: 'started',
+        de_DE: 'done',
+        ja_JP: 'failed'
+      }
+    },
+    prod: {
+      'Main Site': {
+        en_US: 'started',
+        de_DE: 'done',
+        ja_JP: 'done'
       }
     }
   };
+  var responsePayload;
+
+  if (!req.query.client) {
+    return next(new restify.BadRequestError('Must provide client name.'));
+  }
+  else if (!req.query.env) {
+    responsePayload = baseData;
+  }
+  else if (!req.query.dz) {
+    responsePayload = baseData[req.query.env];
+    if (!responsePayload) {
+      return next(new restify.BadRequestError('Bad environment param.'));
+    }
+  }
+  else if (!req.query.locale) {
+    responsePayload = baseData[req.query.env][req.query.dz];
+    if (!responsePayload) {
+      return next(new restify.BadRequestError('Bad dz param.'));
+    }
+  }
+  else {
+    responsePayload = baseData[req.query.env][req.query.dz][req.query.locale];
+    if (!responsePayload) {
+      return next(new restify.BadRequestError('Bad locale param.'));
+    }
+  }
+
   res.json(200, responsePayload);
   next();
 };
